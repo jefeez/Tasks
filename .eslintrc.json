@@ -8,6 +8,7 @@
         "airbnb",
         "airbnb/hooks",
         "plugin:@typescript-eslint/recommended",
+        "plugin:jsx-a11y/recommended",
         "plugin:@typescript-eslint/recommended-requiring-type-checking",
         "prettier"
     ],
@@ -35,6 +36,14 @@
         ],
         "react/react-in-jsx-scope": "off",
         "import/prefer-default-export": "off",
-        "import/no-extraneous-dependencies": "off"
+        "import/no-extraneous-dependencies": "off",
+        "react/jsx-props-no-spreading":"off",
+        "@typescript-eslint/no-misused-promises":"off",
+        "jsx-a11y/label-has-associated-control": [
+            "error",
+            {
+              "assert": "either"
+            }
+          ]
     }
 }
