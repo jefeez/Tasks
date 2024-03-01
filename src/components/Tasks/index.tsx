@@ -31,7 +31,7 @@ export default function Tasks() {
     },
   ])
   return (
-    <div className='w-full h-full flex flex-col scrollbar-w-[0.2rem] scrollbar  scrollbar-thumb-indigo-500  scrollbar-track-zinc-300 overflow-y-scroll'>
+    <div className='w-full h-full flex flex-col scrollbar-w-[0.15rem] scrollbar  scrollbar-thumb-indigo-500  scrollbar-track-light-800 dark:scrollbar-track-dark-800 overflow-y-scroll'>
       {tasks.map((task) => (
         <Task key={task.id} task={task} />
       ))}

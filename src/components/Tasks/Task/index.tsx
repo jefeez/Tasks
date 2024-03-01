@@ -7,8 +7,8 @@ type TaskProps = {
 
 export default function Task({ task }: TaskProps) {
   return (
-    <div className='w-full flex bg-zinc-200 border-b border-zinc-300'>
-      <div className='w-12 flex flex-col shrink-0 text-zinc-400'>
+    <div className='w-full flex dark:border-dark-500 border-b border-light-500'>
+      <div className='w-12 flex flex-col shrink-0 text-light-100 dark:text-dark-100'>
         <div className='w-12 h-12 shrink-0 flex cursor-pointer hover:text-indigo-500 justify-center items-center'>
           <Strikethrough size={18} />
         </div>
@@ -19,9 +19,11 @@ export default function Task({ task }: TaskProps) {
           <Pencil size={18} />
         </div>
       </div>
-      <div className='w-full border-l border-zinc-300 flex flex-col p-3'>
-        <h4 className='text-xs font-bold pb-3'>{task.name.toUpperCase()}</h4>
-        <p className='text-sm'>{task.description}</p>
+      <div className='w-full border-l dark:border-dark-500 border-light-500 flex flex-col p-3'>
+        <h4 className='text-xs dark:text-light-800 text-dark-800 font-bold pb-3'>
+          {task.name.toUpperCase()}
+        </h4>
+        <p className='text-sm font-medium'>{task.description}</p>
       </div>
     </div>
   )
