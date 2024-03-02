@@ -34,12 +34,12 @@ function Modal({ children, isOpen, setIsOpen }: IModal) {
   )
 }
 
-Modal.Header = function Header() {
+Modal.Header = function Header({ children }: { children: ReactNode }) {
   const { setIsOpen } = useContext(ContextModal)
 
   return (
     <div className='w-full h-12  dark:bg-dark-900 bg-light-900  shrink-0 flex justify-between items-center border border-b-0 rounded-t-sm border-light-500 dark:border-dark-500 '>
-      <div className='text-sm px-4 font-bold'>MODAL</div>
+      <div className='text-sm px-4 font-bold'>{children}</div>
       <div
         onClick={() => setIsOpen(false)}
         className='w-12 h-12 flex cursor-pointer hover:text-indigo-500 items-center justify-center'

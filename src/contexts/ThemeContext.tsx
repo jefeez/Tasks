@@ -9,9 +9,12 @@ export const ThemeContext = createContext<IContextTheme>({} as IContextTheme)
 export const useTheme = () => useContext(ThemeContext)
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
-  const [theme, setTheme] = useState('light')
+  const [theme, setTheme] = useState(localStorage.getItem('@THEME') || 'dark')
 
-  const toggleTheme = useCallback(() => setTheme(theme === 'light' ? 'dark' : 'light'), [theme])
+  const toggleTheme = useCallback(() => {
+    setTheme(theme === 'light' ? 'dark' : 'light')
+    localStorage.setItem('@THEME', theme === 'light' ? 'dark' : 'light')
+  }, [theme])
 
   return (
     <ThemeContext.Provider value={useMemo(() => ({ theme, toggleTheme }), [toggleTheme, theme])}>

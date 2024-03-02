@@ -32,7 +32,7 @@ export default function Task({ task }: TaskProps) {
   return (
     <>
       <Modal isOpen={isOpen} setIsOpen={setIsOpen}>
-        <Modal.Header />
+        <Modal.Header>UPDATE TASK</Modal.Header>
         <Update task={task} />
       </Modal>
       <div className='w-full  flex dark:border-dark-500 border-b border-light-500'>

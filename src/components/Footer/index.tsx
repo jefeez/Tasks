@@ -15,7 +15,7 @@ export default function Footer() {
         NEW TASKS
       </button>
       <Modal isOpen={isOpen} setIsOpen={setIsOpen}>
-        <Modal.Header />
+        <Modal.Header>INSET NEW TASK</Modal.Header>
         <Insert />
       </Modal>
     </div>
