@@ -1,23 +1,47 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
+import { useEffect, useRef } from 'react'
 
 const schema = z.object({
-  name: z.string().min(4).max(25),
-  description: z.string().min(4).max(164),
+  name: z.string().min(4).max(40),
+  description: z.string().min(4).max(215),
   completed: z.optional(z.boolean()),
 })
 
 type ISchema = z.infer<typeof schema>
 
 function Form({ onSubmit, onCancel }: { onSubmit: (data: ISchema) => void; onCancel: () => void }) {
+  const nameLength = useRef(0)
+  const descriptionLength = useRef(0)
+
   const {
     register,
+    watch,
+    setError,
     handleSubmit,
     formState: { errors },
   } = useForm<ISchema>({
     resolver: zodResolver(schema),
   })
+
+  useEffect(() => {
+    nameLength.current = watch('name').length
+    if (nameLength.current === 40) {
+      setError('name', { type: 'manual', message: 'String must contain at most 40 character(s)' })
+    }
+  }, [watch('name')])
+
+  useEffect(() => {
+    descriptionLength.current = watch('description').length
+    if (descriptionLength.current === 215) {
+      setError('description', {
+        type: 'manual',
+        message: 'String must contain at most 215 character(s)',
+      })
+    }
+  }, [watch('description')])
 
   return (
     <form
@@ -26,10 +50,11 @@ function Form({ onSubmit, onCancel }: { onSubmit: (data: ISchema) => void; onCan
     >
       <div className='w-full flex flex-col'>
         <label className='text-xs font-semibold py-2' htmlFor='name'>
-          NAME:
+          NAME: <span className='text-light-100 dark:text-dark-100'>{nameLength.current} / 40</span>
         </label>
         <p className='text-xs text-red-500 font-semibold pb-2'>{errors.name?.message}</p>
         <input
+          maxLength={40}
           id='name'
           {...register('name')}
           className='dark:bg-dark-1000 border focus:border-indigo-500 border-light-400 rounded-sm dark:border-dark-500 focus:ring-0'
@@ -37,10 +62,14 @@ function Form({ onSubmit, onCancel }: { onSubmit: (data: ISchema) => void; onCan
       </div>
       <div className='w-full flex flex-col'>
         <label className='text-xs font-semibold py-2' htmlFor='description'>
-          DESCRIPTION:
+          DESCRIPTION:{' '}
+          <span className='text-light-100 dark:text-dark-100'>
+            {descriptionLength.current} / 215
+          </span>
         </label>
         <p className='text-xs text-red-500 font-semibold pb-2'>{errors.description?.message}</p>
         <textarea
+          maxLength={215}
           rows={6}
           {...register('description')}
           className='dark:bg-dark-1000 border focus:border-indigo-500 rounded-sm border-light-400 dark:border-dark-500 focus:ring-0'

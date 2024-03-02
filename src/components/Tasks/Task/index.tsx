@@ -35,7 +35,7 @@ export default function Task({ task }: TaskProps) {
         <Modal.Header />
         <Update task={task} />
       </Modal>
-      <div className='w-full flex dark:border-dark-500 border-b border-light-500'>
+      <div className='w-full  flex dark:border-dark-500 border-b border-light-500'>
         <div className='w-12 flex flex-col shrink-0 text-light-100 dark:text-dark-100'>
           <div
             onClick={onCompleted}
@@ -62,7 +62,7 @@ export default function Task({ task }: TaskProps) {
           <h4 className='text-xs  dark:text-light-800 text-dark-800 font-bold pb-3'>
             {task.name.toUpperCase()}
           </h4>
-          <p className='text-sm font-medium text-wrap whitespace-normal break-words'>
+          <p className='text-sm hyphens-auto font-medium text-wrap whitespace-normal break-words'>
             {task.description}
           </p>
         </div>
