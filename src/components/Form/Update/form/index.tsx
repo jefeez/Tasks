@@ -1,8 +1,11 @@
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
+import { useEffect } from 'react'
+import { ITask } from '../../../Tasks/Task/task.type'
 
 const schema = z.object({
+  id: z.string(),
   name: z.string().min(4).max(25),
   description: z.string().min(4).max(164),
   completed: z.optional(z.boolean()),
@@ -10,8 +13,17 @@ const schema = z.object({
 
 type ISchema = z.infer<typeof schema>
 
-function Form({ onSubmit, onCancel }: { onSubmit: (data: ISchema) => void; onCancel: () => void }) {
+function Form({
+  onSubmit,
+  onCancel,
+  task,
+}: {
+  onSubmit: (data: ISchema) => void
+  onCancel: () => void
+  task: ITask
+}) {
   const {
+    setValue,
     register,
     handleSubmit,
     formState: { errors },
@@ -19,11 +31,18 @@ function Form({ onSubmit, onCancel }: { onSubmit: (data: ISchema) => void; onCan
     resolver: zodResolver(schema),
   })
 
+  useEffect(() => {
+    setValue('id', task.id)
+    setValue('name', task.name)
+    setValue('description', task.description)
+  }, [setValue, task])
+
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
       className='w-[30rem] flex p-5 flex-col gap-3 dark:bg-dark-900 bg-light-900 rounded-b-sm border dark:border-dark-500 border-light-500'
     >
+      <input type='hidden' {...register('id')} />
       <div className='w-full flex flex-col'>
         <label className='text-xs font-semibold py-2' htmlFor='name'>
           NAME:
@@ -58,7 +77,7 @@ function Form({ onSubmit, onCancel }: { onSubmit: (data: ISchema) => void; onCan
           className='text-xs bg-indigo-500 hover:bg-indigo-600 w-24 rounded-sm text-white px-5 py-3'
           type='submit'
         >
-          INSERT
+          UPDATE
         </button>
       </div>
     </form>

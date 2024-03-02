@@ -1,35 +1,19 @@
-import { useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 
-import { ITask } from './Task/task.type'
+import { useEffect } from 'react'
 import Task from './Task'
+import { AppDispatch, RootState } from '../../stores'
+import { getTasks } from '../../stores/features/tasksSlice'
 
 export default function Tasks() {
-  const [tasks] = useState<ITask[]>([
-    {
-      id: '1',
-      name: 'Task 1',
-      description: `Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo pariatur laboriosam harum
-      voluptate dolorum deleniti reprehenderit corporis nisi voluptates quos.`,
-    },
-    {
-      id: '2',
-      name: 'Task 2',
-      description: `Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo pariatur laboriosam harum
-      voluptate dolorum deleniti reprehenderit corporis nisi voluptates quos.`,
-    },
-    {
-      id: '3',
-      name: 'Task 3',
-      description: `Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo pariatur laboriosam harum
-      voluptate dolorum deleniti reprehenderit corporis nisi voluptates quos.`,
-    },
-    {
-      id: '4',
-      name: 'Task 4',
-      description: `Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo pariatur laboriosam harum
-      voluptate dolorum deleniti reprehenderit corporis nisi voluptates quos.`,
-    },
-  ])
+  const tasks = useSelector((state: RootState) => state.tasks.tasks)
+
+  const dispatch = useDispatch<AppDispatch>()
+
+  useEffect(() => {
+    dispatch(getTasks())
+  }, [dispatch])
+
   return (
     <div className='w-full h-full flex flex-col scrollbar-w-[0.15rem] scrollbar  scrollbar-thumb-indigo-500  scrollbar-track-light-800 dark:scrollbar-track-dark-800 overflow-y-scroll'>
       {tasks.map((task) => (

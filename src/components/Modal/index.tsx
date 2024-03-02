@@ -17,6 +17,8 @@ type IModalContext = {
 
 const ContextModal = createContext<IModalContext>({} as IModalContext)
 
+export const useModal = () => useContext(ContextModal)
+
 function Modal({ children, isOpen, setIsOpen }: IModal) {
   return (
     <ContextModal.Provider value={{ isOpen, setIsOpen }}>
