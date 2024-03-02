@@ -3,7 +3,7 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import { v4 } from 'uuid'
 import { ITask } from '../../components/Tasks/Task/task.type'
 
-const task = {
+const init = {
   id: v4(),
   name: 'Tasks',
   description:
@@ -21,7 +21,7 @@ const initialState: ITasksState = {
 export const getTasks = createAsyncThunk<ITask[]>('getTasks', () => {
   const tasks = localStorage.getItem('@TASKS')
   if (!tasks) {
-    localStorage.setItem('@TASKS', JSON.stringify([task]))
+    localStorage.setItem('@TASKS', JSON.stringify([init]))
   }
   const get = localStorage.getItem('@TASKS')
 
